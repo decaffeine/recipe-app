@@ -24,7 +24,7 @@ repositories {
 	maven { url = uri("https://repo.spring.io/snapshot") }
 }
 
-extra["snippetsDir"] = file("build/generated-snippets")
+val snippetsDir by extra { file("build/generated-snippets") }
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
@@ -37,6 +37,7 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+	testImplementation("io.rest-assured:rest-assured:5.1.1")
 }
 
 tasks.withType<KotlinCompile> {
@@ -56,5 +57,5 @@ tasks.test {
 
 tasks.asciidoctor {
 	inputs.dir(snippetsDir)
-	dependsOn(test)
+	dependsOn(tasks.test)
 }
